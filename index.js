@@ -69,7 +69,7 @@ async function calculateNumTasks(){
     toDoList.map((item)=>{
         i++
     })
-    showToDoList.innerHTML = `<span>#</span>Tasks:${i}`
+    showToDoList.innerHTML = `<span>#</span>Tasks:<b>${i}</b>`
 
 
 }
@@ -111,8 +111,8 @@ async function showCompletedTask(
           
           
       })
-    showToDoListNumber.innerHTML = `<span>#</span>Tasks:${i}`
-    let all = document.getElementById("all")
+      showToDoListNumber.innerHTML = `<span>#</span>Tasks:<b>${i}</b>`
+      let all = document.getElementById("all")
     let Completed = document.getElementById("Completed")
     let NotCompleted = document.getElementById("NotCompleted")
   
@@ -156,7 +156,7 @@ async function showNotCompletedTask(){
             } 
         
           })
-          showToDoListNumber.innerHTML = `<span>#</span>Tasks:${i}`
+          showToDoListNumber.innerHTML = `<span>#</span>Tasks:<b>${i}</b>`
           let all = document.getElementById("all")
           let Completed = document.getElementById("Completed")
           let NotCompleted = document.getElementById("NotCompleted")

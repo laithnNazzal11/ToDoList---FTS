@@ -94,7 +94,7 @@ body {
   animation-timing-function: ease-in-out;
   animation-direction: alternate;
 }
-@media (max-width: 600px) {
+@media (max-width: 990px) {
   .colors-rigth,
   .colors-rigth-project,
   .colors-left-project,
@@ -203,7 +203,7 @@ body {
 
 .buttonAddTask{
     border: none;
-    width: 40%;
+    width: 100%;
     height: 2.5rem;
     border-radius: 2rem;
     background-color: #7258e4;
@@ -242,7 +242,7 @@ body {
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background-color: #3fd2f6;
+  background-color: #dddddd;
   margin-right: 2rem;
 }
 .DetailsTodayTaskInsideRed::before {
@@ -255,6 +255,9 @@ body {
   background-color: #fa9aad;
   margin-right: 2rem;
 }
+
+
+
 /* End LeftBar */
 
 /* Start RigthBar */
@@ -340,7 +343,7 @@ button:hover{
     background-color: #9580f0;
 }
 
-.theToDoListRed,.theToDoListYellow,.theToDoListBlue {
+.theToDoListRed,.theToDoListYellow,.theToDoListBlue,.theToDoList{
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -352,7 +355,13 @@ button:hover{
   transition: all .5s ease-in-out;
   cursor: pointer;
 }
+.theToDoList:hover{
+    background-color: #eaeaea;
+    border-bottom: 5px solid #e0e0e0;
+    transform: scale(1.01);
+    margin-left: 5px;
 
+}
 .theToDoListYellow:hover{
     background-color: #e3b40c;
     border-bottom: 3px solid #fff;
@@ -380,10 +389,33 @@ button:hover{
 
 .TitleToDOYellow,
 .TitleToDOBlue,
-.TitleToDORed {
+.TitleToDORed,
+.TitleToDO,
+.TitleToDOCompleted{
   flex: 2.3;
 }
 
+.TitleToDO::before {
+    content: "  ";
+    display: inline-block;
+    flex-direction: row;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #dadada;
+    margin-right: 2rem;
+  }
+  .TitleToDOCompleted::before {
+    content: "  ";
+    display: inline-block;
+    flex-direction: row;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #e3b40c;
+    margin-right: 2rem;
+
+  }
 .TitleToDOYellow::before {
   content: "  ";
   display: inline-block;
@@ -457,6 +489,129 @@ button:hover{
 
    
 }
+@media (max-width: 990px) {
+    .ProfileDetails {
+      flex-direction: column;
+      justify-content: center;
+      align-content: center;
+    }
+    .nameProfile h3 {
+        font-size: 1rem;
+        text-align: center;
+        margin-top: 0;
+    }
+    .nameProfile h2 {
+        font-size: 1rem;
+        margin-bottom: 0;
+    }
+    .title{
+        flex-direction: column;
+    }
+    .title h1 {
+        font-size: .7rem;
+    }
+    .title i {
+        font-size: 1.5rem;
+        margin-top: 0;
+    }
+    .confirmAddTask{
+        flex-direction: column;
+    }
+    .ChoosType{
+        width: 100%;
+        margin-bottom: 1rem;
+
+    }
+    
+    .buttonAddTask{
+        width: 100%;
+        margin-bottom: 0;
+
+    
+    }
+    .DetailsTodayTask {
+          margin-left: 0;
+          margin-top: 0;
+      }
+    .DetailsTodayTask p {
+        font-size: .9rem;
+    }
+    .DetailsTodayTaskInsideYallow::before,.DetailsTodayTaskInsideBlue::before,.DetailsTodayTaskInsideRed::before {
+        content: "  ";
+        display: inline-block;
+        text-align: center;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-right: 1rem;
+    }
+  }
+
+  @media (max-width: 780px) {
+    .ToDoListContainer{
+        flex-direction: column;
+        position: relative;
+        display: flex;
+        background-color: none;
+        justify-content: center;
+        gap: 0;
+        border-radius: none;
+        border-right: none;
+        width: 100%;
+        height: 100%;
+        margin-top: 20rem;
+    }
+    .leftContainer{
+        background-color: #ffffff;
+        padding: 2rem;
+        flex: 2;
+        min-height: auto;
+        border-radius: 5rem;
+        border-top-right-radius: 7rem;
+        border-bottom-right-radius: 7rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;  
+      }
+    .rigthContainer{
+        flex: 1;
+        min-height: 100%;
+
+    }
+    
+  }
+
+  @media (max-width: 470px) {
+    .rigthContainer{
+        flex: .5;
+        min-height: auto;
+
+    }
+    .titleRigth{
+        flex-direction: column;
+        justify-content: center;
+        margin-top: .5rem;
+    }
+    .titleRigth h1 {
+        margin-top: 0;
+        margin-bottom: 1rem;
+    }
+    .button{
+        flex-direction: column;
+    }
+    .theToDoListRed,.theToDoListYellow,.theToDoListBlue{
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        font-size: .9rem;
+
+    }
+    .icons {
+        
+    }
+ 
+    
+  }
 
 /* .circle{
     width: 15px;

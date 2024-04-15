@@ -393,6 +393,7 @@ button:hover{
 .TitleToDO,
 .TitleToDOCompleted{
   flex: 2.3;
+  font-size: .8rem;
 }
 
 .TitleToDO::before {

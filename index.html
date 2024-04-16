@@ -25,7 +25,17 @@
 
     <title>Laith Nazzal</title>
   </head>
+
   <body>
+    <div id="shadowCursor"></div>
+    <div id="inputNull" style="display: none;"><h2>Cant Add Empty ToDo</h2></div>
+    <div class="screenedit" style="display: none;" id="screenedit">
+      <input type="text" id="inputTextEdit"  />
+      <button onclick="editTask()">Edit</button>
+      <button onclick="closeEditTask()" class="close">Close</button>
+
+    </div>
+
     <div class="container">
       <div class="colors-rigth"></div>
       <div class="colors-rigth-project"></div>
@@ -46,8 +56,8 @@
               <i class="fa-solid fa-file-code"></i>
               <h1>Add New Task</h1>
             </div>
-            <div class="addNewTask">
-              <input
+            <div class="addNewTask" >
+              <input id="addNewTask"
                 class="newTaskInput"
                 type="text"
                 class="input"
@@ -61,7 +71,7 @@
 
               </select> -->
 
-              <button class="buttonAddTask">Add</button>
+              <button class="buttonAddTask" onclick="addTask()">Add</button>
             </div>
             </div>
             <div class="DetailsTodayTask">
@@ -93,10 +103,12 @@
 
           <div class="inputSearch">
             <input
+              id="inputTextSearch"
               type="search"
               class="input"
               placeholder="Search in your task!"
             />
+            <button onclick="search()" id="searchButton"> <i class="fa-brands fa-searchengin"></i> Search  </button>
           </div>
 
           <div class="button">
@@ -123,7 +135,9 @@
       </div>
     </div>
          <!-- Main JS -->
-         <script src="index.js"></script>   
+         <script src="index.js">
+
+         </script>   
     <!-- <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script> -->
   </body>
 </html>

@@ -485,3 +485,11 @@ document.addEventListener("mouseleave", () => {
   shadowCursor.style.display = "none";
 });
 // mouse effect //
+
+// const editButton = document.getElementById("screenedit")
+
+// document.addEventListener("click",(event)=>{
+//   editButton.style.height = event.pageY  + 'px' ;
+
+// })
+

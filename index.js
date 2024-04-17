@@ -1,20 +1,75 @@
 let idTask;
 let workList;
 async function fetchData() {
+  console.log("geet datta")
   const response = await fetch("https://dummyjson.com/todos");
   const data = await response.json();
   const toDoList = data.todos;
   // let allTasks = toDoList
   localStorage.setItem("allTask", JSON.stringify(toDoList));
 }
-// let i =31
+
 // fetchData()
-// localStorage.setItem('id',i)
+async function sendData(data) {
+  try {
+    const response = await fetch("https://example.com/api/resource", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to send data");
+    }
+
+    console.log("Data sent successfully");
+  } catch (error) {
+    console.error("Error sending data:", error.message);
+  }
+}
+async function deleteData(id) {
+  try {
+    const response = await fetch(`https://example.com/api/resource/${id}`, {
+      method: "DELETE"
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to delete data");
+    }
+
+    console.log("Data deleted successfully");
+  } catch (error) {
+    console.error("Error deleting data:", error.message);
+  }
+}
+async function editData(id, newData) {
+  try {
+    const response = await fetch(`https://example.com/api/resource/${id}`, {
+      method: "PUT", 
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newData)
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to edit data");
+    }
+
+    console.log("Data edited successfully");
+  } catch (error) {
+    console.error("Error editing data:", error.message);
+  }
+}
+
 
 const getDataFromLocal = () => {
   let data = localStorage.getItem("allTask");
   data ? (workList = JSON.parse(data)) : console.log("thanks");
 };
+
 const calculateNumTasks = () => {
   getDataFromLocal();
   let showToDoList = document.getElementById("numberTask");
@@ -28,10 +83,11 @@ const calculateNumTasks = () => {
 
 const ShowToDo = () => {
   getDataFromLocal();
+  document.getElementById("inputTextSearch").value = ""
   console.log(workList);
   let showToDoList = document.getElementById("theToDoListContainer");
-  ("TitleToDOCompleted");
-  ("TitleToDO");
+  let showClear = document.getElementById("clearButtonDiv")
+  showClear.style.display="none"
   showToDoList.innerHTML = workList
     .map((item) => {
       return `<div class="theToDoList">
@@ -74,8 +130,12 @@ const ShowToDo = () => {
 
   
 };
+
 const showCompletedTask = () => {
   getDataFromLocal();
+  let showClear = document.getElementById("clearButtonDiv")
+  showClear.style.display="flex"
+  document.getElementById("inputTextSearch").value = ""
   let showToDoList = document.getElementById("theToDoListContainer");
   // console.log(toDoList); // Log the response to see its structure
   let showToDoListNumber = document.getElementById("numberTask");
@@ -100,6 +160,13 @@ const showCompletedTask = () => {
       i++;
     }
   });
+
+  if(i==0) {
+    if (i ==0){
+      showToDoList.innerHTML = `<div class="theToDoList"> there are no todos Completed!</div>`
+    }
+
+  }
   showToDoListNumber.innerHTML = `<span>#</span>Tasks:<b>${i}</b>`;
   let all = document.getElementById("all");
   let Completed = document.getElementById("Completed");
@@ -117,9 +184,13 @@ const showCompletedTask = () => {
   searchInput.style.borderBottom = "none";
   searchInput.style.backgroundColor = "#7258e4";
 };
+
 const showNotCompletedTask = () => {
   getDataFromLocal();
   let showToDoList = document.getElementById("theToDoListContainer");
+  document.getElementById("inputTextSearch").value = ""
+  let showClear = document.getElementById("clearButtonDiv")
+  showClear.style.display="none"
   // console.log(toDoList); // Log the response to see its structure
   let showToDoListNumber = document.getElementById("numberTask");
   let i = 0;
@@ -161,6 +232,95 @@ const showNotCompletedTask = () => {
   searchInput.style.backgroundColor = "#7258e4";
 };
 
+const search = () => {
+  getDataFromLocal()
+  let data = document.getElementById("inputTextSearch")
+  let toDoSearch = data.value
+  console.log(toDoSearch)
+  let showClear = document.getElementById("clearButtonDiv")
+  showClear.style.display="none"
+  let showToDoList = document.getElementById("theToDoListContainer");
+  if (toDoSearch.length ==0){
+    showToDoList.innerHTML = `<div class="theToDoList"> the text search is empty!</div>`
+    let showToDoListNumber = document.getElementById("numberTask");
+    showToDoListNumber.innerHTML = `<span>#</span>Tasks:<b>0</b>`;
+  }
+  else {
+
+ 
+  showToDoList.innerHTML = workList
+    .map((item) => {
+      if(item.todo.includes(toDoSearch)){
+
+    
+      return `<div class="theToDoList">
+      
+         
+       <div class="${
+         item.completed == false ? `TitleToDO` : `TitleToDOCompleted`
+       }" id="${item.id}">${item.todo}
+       </div>
+       
+       <div class="icons">
+       <i class="fa-solid fa-pen-to-square" onclick="openEditTask(${
+         item.id
+       })"></i>
+       <i class="${
+         item.completed == true
+           ? `fa-solid fa-rectangle-xmark`
+           : `fa-solid fa-checkfa-solid fa-thumbs-up`
+       }" onclick="toggleCompletedAtSearch(${item.id})"></i>
+       <i class="fa-solid fa-trash-can" onclick="deletTask(${item.id})"></i>
+       </div>
+     </div>`;
+    }
+    })
+    .join("");
+ 
+    let i =0;
+    workList.map((item) => {
+      if(item.todo.includes(toDoSearch)){
+        i++;
+      }
+
+
+    });
+    if (i ==0){
+      showToDoList.innerHTML = `<div class="theToDoList"> there are no todos!</div>`
+      let showToDoListNumber = document.getElementById("numberTask");
+      showToDoListNumber.innerHTML = `<span>#</span>Tasks:<b>0</b>`;
+    }
+    let showToDoListNumber = document.getElementById("numberTask");
+
+    showToDoListNumber.innerHTML = `<span>#</span>Tasks:<b>${i}</b>`;
+  }
+  let all = document.getElementById("all");
+  let Completed = document.getElementById("Completed");
+  let NotCompleted = document.getElementById("NotCompleted");
+  all.style.borderBottom = "none";
+  all.style.backgroundColor = "#7258e4";
+  Completed.style.borderBottom = "none";
+  Completed.style.backgroundColor = "#7258e4";
+  NotCompleted.style.borderBottom = "none";
+  NotCompleted.style.backgroundColor = "#7258e4";
+  let searchInput = document.getElementById("searchButton")
+  searchInput.style.borderBottom = " 5px solid #fff";
+  searchInput.style.backgroundColor = "#9580f0";
+};
+
+const clearCompleted = () => {
+  getDataFromLocal();
+  console.log(workList);
+  const newArray = workList.filter((item) => {
+    return item.completed == false
+  });
+  localStorage.setItem("allTask", JSON.stringify(newArray));
+  calculateNumTasks();
+  showCompletedTask();
+  
+
+}
+
 ShowToDo();
 
 const addTask = () => {
@@ -187,6 +347,7 @@ const addTask = () => {
   calculateNumTasks();
   ShowToDo();
   inputElement.value = "";
+  sendData(pushNew)
 };
 
 const deletTask = (id) => {
@@ -198,6 +359,7 @@ const deletTask = (id) => {
   localStorage.setItem("allTask", JSON.stringify(newArray));
   calculateNumTasks();
   ShowToDo();
+  deleteData(id)
 };
 
 const openEditTask = (id) => {
@@ -230,6 +392,7 @@ const editTask = () => {
   localStorage.setItem("allTask", JSON.stringify(workList));
   ShowToDo();
   closeEditTask();
+  editData(idTask, valueEditToDo)
 };
 
 const closeEditTask = () => {
@@ -243,28 +406,6 @@ const AddEmptyToDo = () => {
   setTimeout(() => {
     editButton.style.display = "none";
   }, 1100);
-};
-
-const search = () => {
-  getDataFromLocal()
-  let data = document.getElementById("inputTextSearch")
-  let toDoSearch = data.value
-  console.log(toDoSearch)
-  let all = document.getElementById("all");
-  let Completed = document.getElementById("Completed");
-  let NotCompleted = document.getElementById("NotCompleted");
-
-  all.style.borderBottom = "none";
-  all.style.backgroundColor = "#7258e4";
-
-  Completed.style.borderBottom = "none";
-  Completed.style.backgroundColor = "#7258e4";
-
-  NotCompleted.style.borderBottom = "none";
-  NotCompleted.style.backgroundColor = "#7258e4";
-  let searchInput = document.getElementById("searchButton")
-  searchInput.style.borderBottom = " 5px solid #fff";
-  searchInput.style.backgroundColor = "#9580f0";
 };
 
 const toggleCompletedAtAll = (id) => {
@@ -311,6 +452,25 @@ const toggleCompletedAtNotCompleted = (id) => {
   calculateNumTasks();
   showNotCompletedTask();
 };
+
+const toggleCompletedAtSearch = (id) => {
+  getDataFromLocal();
+
+  console.log(workList);
+  const newArray = workList.map((item) => {
+    if (item.id == id) {
+      item.completed = !item.completed;
+    }
+    return item;
+  });
+  localStorage.setItem("allTask", JSON.stringify(newArray));
+  search();
+};
+
+
+
+
+
 
 // mouse effect //
 const shadowCursor = document.getElementById("shadowCursor");

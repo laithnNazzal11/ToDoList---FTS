@@ -568,6 +568,19 @@ button:hover{
 
    
 }
+.clearButtonDiv{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.clearButton{
+  background-color: #fe2121;
+
+}
+.clearButton:hover{
+  background-color: #cb1919;
+}
 @media (max-width: 990px) {
     .ProfileDetails {
       flex-direction: column;
@@ -637,30 +650,31 @@ button:hover{
         border-radius: none;
         border-right: none;
         width: 100%;
-        height: 100%;
-        margin-top: 20rem;
+        height: auto;
+        margin-top: 0;
     }
     .leftContainer{
-        background-color: #ffffff;
-        padding: 2rem;
-        flex: 2;
-        min-height: auto;
-        border-radius: 5rem;
-        border-top-right-radius: 7rem;
-        border-bottom-right-radius: 7rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;  
+      background-color: #ffffff;
+      padding: 2rem;
+      flex: 1.2;
+      min-height: auto;
+      max-height: 100%;
+      border-radius: 5rem;
+      border-top-right-radius: 7rem;
+      border-bottom-right-radius: 7rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       }
-    .rigthContainer{
-        flex: 1;
-        min-height: 100%;
-
-    }
+      .rigthContainer {
+        flex: 0;
+        padding: 2rem;
+        height: auto;
+      }
     
   }
 
-  @media (max-width: 470px) {
+  @media (max-width: 500px) {
     .rigthContainer{
         flex: .5;
         min-height: auto;
@@ -685,7 +699,12 @@ button:hover{
         font-size: .9rem;
 
     }
+    .theToDoList{
+      flex-direction: column;
+    }
     .icons {
+      margin-top: 1rem;
+      width: 50%;
         
     }
  

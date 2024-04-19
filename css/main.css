@@ -167,6 +167,18 @@ body {
   gap: 1.5rem;
   background-color: rgba(0, 0, 0, 0.753);
 }
+.screeneDelete{
+  position: absolute;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100%;
+  flex-direction: column;
+  gap: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.753);
+}
 .close {
   background-color: red;
   z-index: 1001;

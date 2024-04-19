@@ -107,7 +107,7 @@ const ShowToDo = () => {
            ? `fa-solid fa-rectangle-xmark`
            : `fa-solid fa-checkfa-solid fa-thumbs-up`
        }" onclick="toggleCompletedAtAll(${item.id})"></i>
-       <i class="fa-solid fa-trash-can" onclick="deletTask(${item.id})"></i>
+       <i class="fa-solid fa-trash-can" onclick="OpenDeletTask(${item.id})"></i>
        </div>
      </div>`;
     })
@@ -148,7 +148,7 @@ const showCompletedTask = () => {
           <div class="icons">
             <i class="fa-solid fa-pen-to-square" onclick="openEditTask(${item.id})"></i>
             <i class="fa-solid fa-rectangle-xmark" onclick="toggleCompletedAtCompleted(${item.id})"></i>
-            <i class="fa-solid fa-trash-can" onclick="deletTask(${item.id})"></i>
+            <i class="fa-solid fa-trash-can" onclick="OpenDeletTask(${item.id})"></i>
           </div>
         </div>`
         : ``;
@@ -202,7 +202,7 @@ const showNotCompletedTask = () => {
               <div class="icons">
                 <i class="fa-solid fa-pen-to-square" onclick="openEditTask(${item.id})"></i>
                 <i class="fa-solid fa-checkfa-solid fa-thumbs-up" onclick="toggleCompletedAtNotCompleted(${item.id})"></i>
-                <i class="fa-solid fa-trash-can" onclick="deletTask(${item.id})"></i>
+                <i class="fa-solid fa-trash-can" onclick="OpenDeletTask(${item.id})"></i>
               </div>
             </div>`
         : ``;
@@ -270,7 +270,7 @@ const search = () => {
            ? `fa-solid fa-rectangle-xmark`
            : `fa-solid fa-checkfa-solid fa-thumbs-up`
        }" onclick="toggleCompletedAtSearch(${item.id})"></i>
-       <i class="fa-solid fa-trash-can" onclick="deletTask(${item.id})"></i>
+       <i class="fa-solid fa-trash-can" onclick="OpenDeletTask(${item.id})"></i>
        </div>
      </div>`;
     }
@@ -350,7 +350,15 @@ const addTask = () => {
   sendData(pushNew)
 };
 
-const deletTask = (id) => {
+const OpenDeletTask = (id) => {
+  idTask = id;
+  const editButton = document.getElementById("screeneDelete");
+  editButton.style.display = "flex";
+
+};
+
+const deletTask = () => {
+  id = idTask
   getDataFromLocal();
   console.log(workList);
   const newArray = workList.filter((item) => {
@@ -360,6 +368,7 @@ const deletTask = (id) => {
   calculateNumTasks();
   ShowToDo();
   deleteData(id)
+  closeDeleteTask()
 };
 
 const openEditTask = (id) => {
@@ -397,6 +406,11 @@ const editTask = () => {
 
 const closeEditTask = () => {
   const editButton = document.getElementById("screenedit");
+  editButton.style.display = "none";
+};
+
+const closeDeleteTask = () => {
+  const editButton = document.getElementById("screeneDelete");
   editButton.style.display = "none";
 };
 

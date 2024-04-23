@@ -1,5 +1,7 @@
 let idTask;
 let workList;
+
+
 async function fetchData() {
   console.log("geet datta")
   const response = await fetch("https://dummyjson.com/todos");
@@ -44,6 +46,7 @@ async function deleteData(id) {
     console.error("Error deleting data:", error.message);
   }
 }
+
 async function editData(id, newData) {
   try {
     const response = await fetch(`https://example.com/api/resource/${id}`, {
@@ -64,10 +67,9 @@ async function editData(id, newData) {
   }
 }
 
-
 const getDataFromLocal = () => {
   let data = localStorage.getItem("allTask");
-  data ? (workList = JSON.parse(data)) : console.log("thanks");
+  data ? (workList = JSON.parse(data)) : console.log("No data in localStorge");
 };
 
 const calculateNumTasks = () => {
@@ -75,11 +77,28 @@ const calculateNumTasks = () => {
   let showToDoList = document.getElementById("numberTask");
   let i = 0;
 
-  workList.map((item) => {
+  workList.map(() => {
     i++;
   });
   showToDoList.innerHTML = `<span>#</span>Tasks:<b>${i}</b>`;
 };
+
+const changeColorButton = (idName) => {
+  let activeButton=["all","Completed","NotCompleted","searchButton"]
+
+  activeButton.map((item)=>{
+    if(idName == item) {
+
+      document.getElementById(item).style.borderBottom = "5px solid #fff";
+      document.getElementById(item).style.backgroundColor = "#9580f0";
+    }
+    else {
+      document.getElementById(item).style.borderBottom = "none";
+      document.getElementById(item).style.backgroundColor = "#7258e4";
+    }
+  })
+
+}
 
 const ShowToDo = () => {
   getDataFromLocal();
@@ -88,11 +107,9 @@ const ShowToDo = () => {
   let showToDoList = document.getElementById("theToDoListContainer");
   let showClear = document.getElementById("clearButtonDiv")
   showClear.style.display="none"
-  showToDoList.innerHTML = workList
-    .map((item) => {
+  showToDoList.innerHTML = 
+  workList.map((item) => {
       return `<div class="theToDoList">
-      
-         
        <div class="${
          item.completed == false ? `TitleToDO` : `TitleToDOCompleted`
        }" id="${item.id}">${item.todo}
@@ -114,18 +131,9 @@ const ShowToDo = () => {
     .join("");
   calculateNumTasks();
 
-  let all = document.getElementById("all");
-  let Completed = document.getElementById("Completed");
-  let NotCompleted = document.getElementById("NotCompleted");
-  let searchInput = document.getElementById("searchButton")
-  searchInput.style.borderBottom = "none";
-  searchInput.style.backgroundColor = "#7258e4";
-  all.style.borderBottom = " 5px solid #fff";
-  all.style.backgroundColor = "#9580f0";
-  Completed.style.borderBottom = " none";
-  Completed.style.backgroundColor = "#7258e4";
-  NotCompleted.style.borderBottom = "none";
-  NotCompleted.style.backgroundColor = "#7258e4";
+  changeColorButton("all")
+
+
 
 
   
@@ -168,21 +176,9 @@ const showCompletedTask = () => {
 
   }
   showToDoListNumber.innerHTML = `<span>#</span>Tasks:<b>${i}</b>`;
-  let all = document.getElementById("all");
-  let Completed = document.getElementById("Completed");
-  let NotCompleted = document.getElementById("NotCompleted");
 
-  all.style.borderBottom = "none";
-  all.style.backgroundColor = "#7258e4";
+  changeColorButton("Completed")
 
-  Completed.style.borderBottom = "  5px solid #fff";
-  Completed.style.backgroundColor = "#9580f0";
-
-  NotCompleted.style.borderBottom = "none";
-  NotCompleted.style.backgroundColor = "#7258e4";
-  let searchInput = document.getElementById("searchButton")
-  searchInput.style.borderBottom = "none";
-  searchInput.style.backgroundColor = "#7258e4";
 };
 
 const showNotCompletedTask = () => {
@@ -215,21 +211,8 @@ const showNotCompletedTask = () => {
     }
   });
   showToDoListNumber.innerHTML = `<span>#</span>Tasks:<b>${i}</b>`;
-  let all = document.getElementById("all");
-  let Completed = document.getElementById("Completed");
-  let NotCompleted = document.getElementById("NotCompleted");
 
-  all.style.borderBottom = "none";
-  all.style.backgroundColor = "#7258e4";
-
-  Completed.style.borderBottom = "none";
-  Completed.style.backgroundColor = "#7258e4";
-
-  NotCompleted.style.borderBottom = "  5px solid #fff";
-  NotCompleted.style.backgroundColor = "#9580f0";
-  let searchInput = document.getElementById("searchButton")
-  searchInput.style.borderBottom = "none";
-  searchInput.style.backgroundColor = "#7258e4";
+  changeColorButton("NotCompleted");
 };
 
 const search = () => {
@@ -294,18 +277,9 @@ const search = () => {
 
     showToDoListNumber.innerHTML = `<span>#</span>Tasks:<b>${i}</b>`;
   }
-  let all = document.getElementById("all");
-  let Completed = document.getElementById("Completed");
-  let NotCompleted = document.getElementById("NotCompleted");
-  all.style.borderBottom = "none";
-  all.style.backgroundColor = "#7258e4";
-  Completed.style.borderBottom = "none";
-  Completed.style.backgroundColor = "#7258e4";
-  NotCompleted.style.borderBottom = "none";
-  NotCompleted.style.backgroundColor = "#7258e4";
-  let searchInput = document.getElementById("searchButton")
-  searchInput.style.borderBottom = " 5px solid #fff";
-  searchInput.style.backgroundColor = "#9580f0";
+
+  changeColorButton("searchButton")
+
 };
 
 const clearCompleted = () => {
@@ -500,10 +474,7 @@ document.addEventListener("mouseleave", () => {
 });
 // mouse effect //
 
-// const editButton = document.getElementById("screenedit")
 
-// document.addEventListener("click",(event)=>{
-//   editButton.style.height = event.pageY  + 'px' ;
 
 // })
 
